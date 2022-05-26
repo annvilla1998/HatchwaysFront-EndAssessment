@@ -3,8 +3,10 @@ import './App.css';
 
 function App() {
   const [students, setStudents] = useState(null);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
+  const [query, setQuery] = useState("")
+  // const [text, setText] = useState("")
+
 
   useEffect(() => {
     async function getData() {
@@ -15,23 +17,46 @@ function App() {
       }
       let data = await response.json();
       setStudents(data.students);
-      setError(null)
     }catch(err) {
-      setError(err.message)
+      console.log(err.message)
       setStudents(null)
     }
     setIsLoading(true)
   }
   getData()
    }, []);
-   
+
+
+   const searchStudent = (query, students) => {
+      if(!query) return students
+
+      return students.filter(student => {
+        return (student.lastName.toLowerCase().includes(query.toLowerCase()) ||
+        (student.firstName.toLowerCase().includes(query.toLowerCase())) ||
+        `${student.firstName.toLowerCase()} ${student.lastName.toLowerCase()}`.includes(query.toLowerCase()))
+   })
+   }
   
+   const filteredStudents = searchStudent(query, students)
     
+  //  const search = document.querySelector(".search-input")
+  //  search.addEventListener("click",(e => {
+  //    e.preventDefault()
+  //    search.style.borderBottom = "1px solid rgb(0, 0, 0, 0.5)"
+  //  }))
+
   return (
     <>
       {isLoading && (
         <div className="all-students">
-          {students.map((student, i) => {
+          <input
+          type="text"
+          onChange={e => {setQuery(e.target.value)}}
+          placeholder="Search by name"
+          autocomplete="off"
+          className="search-input"
+          />
+          {filteredStudents.map((student, i) => {
           const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
             return (
               <div className="student-container" key={i}>
