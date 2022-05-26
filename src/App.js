@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
+import { Expand, Grades } from './Grades'
 import './App.css';
 
 function App() {
   const [students, setStudents] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [query, setQuery] = useState("")
-  // const [text, setText] = useState("")
+    // const [expandGrades, setExpandGrades] = useState(false)
+    // const [expanded, setExpanded] = useState(false)
 
 
   useEffect(() => {
@@ -44,7 +46,7 @@ function App() {
   //    e.preventDefault()
   //    search.style.borderBottom = "1px solid rgb(0, 0, 0, 0.5)"
   //  }))
-
+// console.log(expandGrades)
   return (
     <>
       {isLoading && (
@@ -53,26 +55,17 @@ function App() {
           type="text"
           onChange={e => {setQuery(e.target.value)}}
           placeholder="Search by name"
-          autocomplete="off"
+          autoComplete="off"
           className="search-input"
           />
           {filteredStudents.map((student, i) => {
           const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
             return (
-              <div className="student-container" key={i}>
-                <div className="student-image">
-                  <img src={student.pic} />
-                </div>
-                <div className="student-text">
-                  <h1 style={{textTransform: "uppercase"}}>{student.firstName} {student.lastName}</h1>
-                  <div>Email: {student.email}</div>
-                  <div>Company: {student.company}</div>
-                  <div>Skill: {student.skill}</div>
-                  <div>Average: {average}%</div>
-                </div>
-              </div>
-            )
-            })}
+              <>
+                <Expand i={i} student={student} average={average}/>
+              </>
+              )
+              })}
         </div>
       )}
     </>

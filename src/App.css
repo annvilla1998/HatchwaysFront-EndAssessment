@@ -19,15 +19,18 @@
 .student-container {
   display: flex;
   align-items: center;
-  gap: 40px;
+  /* gap: 40px; */
   padding: 10px 0;
   overflow: hidden;
-  width: 90%;
+  width: 100%;
+  margin: 0px;
+  /* justify-content: space-between; */
 }
 
 .student-image img {
   max-width: 100%;
-  width: 120px;
+  /* width: 120px; */
+  width: 8vw;
   height: auto;
   display: block;
   border-radius: 50%;
@@ -37,6 +40,7 @@
 .student-text {
   font-family: 'Raleway', sans-serif;
   display: inline-block;
+  padding: 0 40px;
 }
 
 .student-text h1 {
@@ -45,11 +49,10 @@
   font-size: 3vw;
 }
 
-.student-text div {
-  font-weight: 400;
+.text {
+  font-weight: 300;
   padding: 2px 20px;
   font-size: 1.2vw;
-  
 }
 
 .search-input {
@@ -64,4 +67,47 @@
   outline: none;
   border-bottom: 1px solid rgb(0, 0, 0, 0.8);
   /* box-shadow:  0px 15px 10px -15px black;  */
+}
+
+.student-expander-wrapper {
+  display: inline-flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+
+}
+
+.grade-expand {
+  border: none;
+  font-size: 4.5vw;
+  padding: 5px 0;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.grade-expand:hover {
+  opacity: 1;
+}
+
+.minus {
+  font-size: 5vw;
+}
+
+.grades-list {
+  display: flex;
+  flex-direction: column;
+  padding-left: 64px;
+  margin: 0 8vw;
+  justify-content: flex-start;
+  font-weight: 300;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2vw;
+}
+
+.grade {
+  display: flex;
+  width: 10vw;  
+  padding: 0;
+  justify-content: space-between;
 }
