@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
+
+
+.all-students {
+  display: block;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  margin: 5% 20%;
+  max-height: 50vh;
+  height: auto; 
+  overflow: auto;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 1px rgb(0, 0, 0, 0.3);
+  padding: 10px 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+::-webkit-scrollbar {
+  display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.student-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 40px;
+  padding: 10px 0;
+  overflow: hidden;
+  width: 90%;
 }
 
-.App-link {
-  color: #61dafb;
+.student-image img {
+  max-width: 100%;
+  width: 120px;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+  border: 1px solid rgb(0, 0, 0, 0.2);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.student-text {
+  font-family: 'Raleway', sans-serif;
+  display: inline-block;
+}
+
+.student-text h1 {
+  font-weight: 700;
+  margin: 10px 0;
+  font-size: 3vw;
+}
+
+.student-text div {
+  font-weight: 400;
+  padding: 2px 20px;
+  font-size: 1.2vw;
+  
 }
