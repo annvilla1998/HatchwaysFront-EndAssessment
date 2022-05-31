@@ -1,9 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { addTag, getTags } from './store/tags'
 
-
-export const Expand = ({student, i, average}) => {
+export const Student = ({student, tags, i, average}) => {
     const [expandGrades, setExpandGrades] = useState(false)
-    
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch()
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+
+      const newTag = {
+        id: tags[tags.length - 1].id + 1,
+        studentId: i + 1,
+        content: content,
+      }
+      setContent('')
+
+      await dispatch(addTag(newTag)).then(() => dispatch(getTags()))
+    }
+
+
 
     return (
         <div className="grades-list-wrapper">
@@ -35,6 +52,29 @@ export const Expand = ({student, i, average}) => {
                             ))}
                         </div>
                     )}
+                    <div className="tags">
+                        <div className="tags-container">
+                          {tags?.map(tag => (
+                          <>
+                            {tag.studentId === (i + 1) ? (
+                                <div key={tag.id}>
+                                  <div className="tag">{tag.content}</div>
+                                </div>
+                              ): null}
+                          </>
+                          ))}
+                        </div>
+                        <form>
+                            <input
+                            type="text"
+                            id="tag"
+                            placeholder="Add tag"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            />
+                            <button type="submit" onClick={handleSubmit} style={{display:'none'}}></button>
+                        </form>
+                    </div>
         </div>
     )
 }

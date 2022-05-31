@@ -111,3 +111,44 @@
   padding: 0;
   justify-content: space-between;
 }
+
+.tags-container {
+  padding: 5px;
+  display:flex;
+  flex-direction: row;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  padding-left: 64px;
+  margin: 0 8vw;
+  justify-content: flex-start;
+  font-weight: 300;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2vw;
+}
+
+.tag {
+  border: 1px solid rgba(128, 128, 128, 0.322);
+  display:inline-block;
+  padding: 8px;
+  margin: 2px 3px;
+  border-radius: 3px;
+  font-weight: 300;
+  background-color:rgba(128, 128, 128, 0.247);
+}
+
+.tags input {
+  width: 45%;
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1vw;
+  padding: 8px 5px;
+}
+
+.tags input:focus{
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.8);
+}
