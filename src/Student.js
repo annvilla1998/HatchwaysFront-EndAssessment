@@ -1,23 +1,19 @@
-import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { addTag, getTags } from './store/tags'
+import { useState } from 'react'
 
-export const Student = ({student, tags, i, average}) => {
+export const Student = ({student, i, average}) => {
     const [expandGrades, setExpandGrades] = useState(false)
     const [content, setContent] = useState('');
-    const dispatch = useDispatch()
 
     const handleSubmit = async (e) => {
       e.preventDefault()
 
       const newTag = {
-        id: tags[tags.length - 1].id + 1,
-        studentId: i + 1,
         content: content,
       }
-      setContent('')
 
-      await dispatch(addTag(newTag)).then(() => dispatch(getTags()))
+      student.tags.push(newTag)
+      setContent('')
+      console.log(student)
     }
 
 
@@ -54,15 +50,13 @@ export const Student = ({student, tags, i, average}) => {
                     )}
                     <div className="tags">
                         <div className="tags-container">
-                          {tags?.map(tag => (
+                          {student.tags.length > 0 ? student.tags.map(tag => (
                           <>
-                            {tag.studentId === (i + 1) ? (
                                 <div key={tag.id}>
                                   <div className="tag">{tag.content}</div>
                                 </div>
-                              ): null}
                           </>
-                          ))}
+                          )): null}
                         </div>
                         <form>
                             <input
