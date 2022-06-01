@@ -9,7 +9,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(null);
   const dispatch = useDispatch()
   const [query, setQuery] = useState("")
+  const [queryResults, setQueryResults] = useState([])
   const [tagQuery, setTagQuery] = useState("")
+  const [tagQueryResults, setTagQueryResults] = useState([])
+  const filteredStudents = [...queryResults, ...tagQueryResults]
   const tags = useSelector(state => state.tags)
   const tagsArr = Object.values(tags)
 
@@ -37,35 +40,35 @@ function App() {
    }, []);
 
 
-   const searchStudent = (query, students) => {
-      if(!query) return students
+   const searchStudent = (query, studentsArr, setResults) => {
+      if(!query) return setResults([])
 
-      if(query){
-        return students.filter(student => {
+      let students = studentsArr.filter(student => {
           return (student.lastName.toLowerCase().includes(query.toLowerCase()) ||
           (student.firstName.toLowerCase().includes(query.toLowerCase())) ||
           `${student.firstName.toLowerCase()} ${student.lastName.toLowerCase()}`.includes(query.toLowerCase()))
         })
-      }
-      // if(tagQuery) {
-      //   return students.filter(student => {
-      //     tagsArr.forEach(tag => {
-      //       return tag.content.toLowerCase().includes(tagQuery.toLowerCase())
-      //     })
-      //   })
-      // }
-        
+
+      setResults(students)      
    }
    
-  //  const searchTag = (query, tags) => {
-  //     if(!tagQuery) return tags
+   const searchTag = (query, students, setResults) => {
+      if(!query) return setResults([])
 
-  //     return tags.filter(tag => {
-  //       return (tag.content.toLowerCase().includes(tagQuery.toLowerCase()))
-  //  })
-  //  }
-  //  const filteredTags = searchTag(tagQuery, tags)
-   const filteredStudents = searchStudent(query, students)
+      let studentsTag = []
+
+      for(let tag of tagsArr){
+      for(let student of students) {
+          if(student.id === (tag.id + 1)){
+            studentsTag.push(student)
+          }
+        }
+      }
+      console.log(studentsTag)
+      return studentsTag.filter(tag => {
+        return (tag.content.toLowerCase().includes(query.toLowerCase()))
+   })
+   }
     
 
   return (
@@ -78,6 +81,9 @@ function App() {
             placeholder="Search by name"
             autoComplete="off"
             className="search-input"
+            onKeyUp={e => 
+            searchStudent(e.target.value,students, setQueryResults)
+            }
             />
             <input
             type="text"
@@ -85,15 +91,33 @@ function App() {
             placeholder="Search by tag"
             autoComplete="off"
             className="search-input"
+            onKeyUp={e => 
+              searchTag(e.target.value,students, setTagQueryResults)
+            }
             />
-            {filteredStudents.map((student, i) => {
-            const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
-              return (
-                <>
-                  <Student i={i} tags={tagsArr} student={student} average={average}/>
-                </>
-                )
-                })}
+            {(filteredStudents && filteredStudents.length > 0) ? (
+              <>
+                {filteredStudents.map((student, i) => {
+                const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
+                  return (
+                    <>
+                      <Student i={i} tags={tagsArr} student={student} average={average}/>
+                    </>
+                    )
+                    })}
+              </>
+            ):(
+              <>
+              {students.map((student, i) => {
+                const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
+                  return (
+                    <>
+                      <Student i={i} tags={tagsArr} student={student} average={average}/>
+                    </>
+                    )
+                  })}
+              </>
+              )}
           </div>
         )}
       </>
