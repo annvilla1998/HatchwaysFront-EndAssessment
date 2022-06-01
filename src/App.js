@@ -53,7 +53,6 @@ function App() {
         return student.tags.length > 0
    })
 
-   console.log(studentsWTags)
      studentsWTags.forEach(student => {
        let tagExists = false
        student.tags.forEach(tag => {
@@ -65,7 +64,6 @@ function App() {
         result.push(student);
       }
     })
-    console.log(result)
       setResults(result)
   }
 
@@ -98,9 +96,9 @@ function App() {
                 {filteredStudents.map((student, i) => {
                 const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
                   return (
-                    <>
+                    <div key={i}>
                       <Student i={i} student={student} average={average}/>
-                    </>
+                    </div>
                     )
                     })}
               </>
@@ -109,9 +107,9 @@ function App() {
               {students.map((student, i) => {
                 const average = student.grades.reduce((sum, curr) => sum + Number(curr), 0) / student.grades.length
                   return (
-                    <>
+                    <div key={i}>
                       <Student i={i} student={student} average={average}/>
-                    </>
+                    </div>
                     )
                   })}
               </>

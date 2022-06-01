@@ -23,7 +23,7 @@ export const Student = ({student, i, average}) => {
                   <div className="student-expander-wrapper">
                     <div className="student-container" key={i}>
                       <div className="student-image">
-                        <img src={student.pic} />
+                        <img alt="student-pic" src={student.pic} />
                       </div>
                       <div className="student-text">
                         <h1 style={{textTransform: "uppercase"}}>{student.firstName} {student.lastName}</h1>
